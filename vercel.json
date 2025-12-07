@@ -1,9 +1,0 @@
-{
-  "buildCommand": "next build",
-  "git": {
-    "deploymentEnabled": {
-      "main": true,
-      "develop": true
-    }
-  }
-}
