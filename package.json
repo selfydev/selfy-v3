@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "echo \"Dev script to be configured in next sprint\"",
-    "build": "echo \"Build script to be configured in next sprint\"",
+    "build": "mkdir -p public && cp -r src public/ && echo \"Sprint 0 build complete\"",
     "start": "echo \"Start script to be configured in next sprint\"",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
