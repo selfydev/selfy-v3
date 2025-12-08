@@ -1,3 +1,7 @@
+'use client';
+
+import { signOut } from 'next-auth/react';
+
 export default function DashboardHeader() {
   return (
     <header className="flex h-16 items-center border-b border-neutral-200 bg-white px-6">
@@ -6,6 +10,12 @@ export default function DashboardHeader() {
         <div className="flex items-center gap-4">
           <button className="rounded-md bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500">
             New Item
+          </button>
+          <button
+            onClick={() => signOut({ callbackUrl: '/' })}
+            className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+          >
+            Sign Out
           </button>
         </div>
       </div>

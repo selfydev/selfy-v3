@@ -70,3 +70,5 @@ temp
 
 # Debug
 .vscode-test
+
+/generated/prisma

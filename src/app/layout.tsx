@@ -3,6 +3,7 @@ import { EB_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { ToastProvider } from '@/components/ui/Toast';
+import { SessionProvider } from '@/providers/SessionProvider';
 
 // Load EB Garamond font for headings
 const ebGaramond = EB_Garamond({
@@ -33,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ebGaramond.variable} ${inter.variable}`}>
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider>
-          <ToastProvider>{children}</ToastProvider>
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

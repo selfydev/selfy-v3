@@ -1,12 +1,38 @@
-export default function DashboardPage() {
+import { getCurrentUser } from '@/lib/auth-utils';
+import { redirect } from 'next/navigation';
+
+export default async function DashboardPage() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/auth/signin');
+  }
+
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div>
+      {/* Page Header with User Info */}
+      <div className="rounded-lg bg-white p-6 shadow">
         <h2 className="text-2xl font-bold text-neutral-900">Dashboard Overview</h2>
-        <p className="mt-1 text-sm text-neutral-600">
-          Welcome to your dashboard. Authentication will be added in a future sprint.
-        </p>
+        <p className="mt-1 text-sm text-neutral-600">Welcome back, {user.name || user.email}!</p>
+        <div className="mt-4 border-t border-neutral-200 pt-4">
+          <h3 className="text-sm font-semibold text-neutral-700">Your Profile</h3>
+          <dl className="mt-2 space-y-2">
+            {user.name && (
+              <div className="flex justify-between text-sm">
+                <dt className="text-neutral-600">Name:</dt>
+                <dd className="font-medium text-neutral-900">{user.name}</dd>
+              </div>
+            )}
+            <div className="flex justify-between text-sm">
+              <dt className="text-neutral-600">Email:</dt>
+              <dd className="font-medium text-neutral-900">{user.email}</dd>
+            </div>
+            <div className="flex justify-between text-sm">
+              <dt className="text-neutral-600">User ID:</dt>
+              <dd className="font-mono text-xs text-neutral-700">{user.id}</dd>
+            </div>
+          </dl>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -84,19 +110,18 @@ export default function DashboardPage() {
       </div>
 
       {/* Status Banner */}
-      <div className="rounded-lg bg-info-light p-6">
+      <div className="rounded-lg bg-success-light p-6">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="h-10 w-10 rounded-full bg-info-DEFAULT"></div>
+            <div className="h-10 w-10 rounded-full bg-success-DEFAULT"></div>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-info-dark">
-              Dashboard Protected Route (No Auth Yet)
+            <h3 className="text-sm font-semibold text-success-dark">
+              Protected Dashboard - Authentication Active
             </h3>
-            <p className="mt-1 text-sm text-info-dark">
-              This is a placeholder dashboard page. Authentication and authorization will be
-              implemented in a future sprint. For now, this demonstrates the layout structure with
-              design tokens.
+            <p className="mt-1 text-sm text-success-dark">
+              This dashboard is now protected with NextAuth. Users must be authenticated to access
+              this page. Your session is active and your user data is loaded from the database.
             </p>
           </div>
         </div>
