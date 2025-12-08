@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { ToastProvider } from '@/components/ui/Toast';
 
 export const metadata: Metadata = {
   title: 'Selfy v3',
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ThemeProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
