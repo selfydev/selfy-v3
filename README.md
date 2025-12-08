@@ -110,18 +110,21 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 ## Features
 
 ### Sprint 0 - Foundation ✅
+
 - GitHub repository with branch protection
 - TypeScript, ESLint, Prettier, Husky configuration
 - Vercel deployment setup
 - Comprehensive documentation
 
 ### Sprint 1 - Next.js + Tailwind + Design Tokens ✅
+
 - Next.js 16 with App Router
 - Tailwind CSS 4 with design tokens
 - Marketing and Dashboard layouts
 - Responsive homepage and dashboard pages
 
 ### Sprint 2 - UI Component Library ✅
+
 - **Button**: Multiple variants (primary, secondary, outline, ghost, danger), sizes, loading state
 - **Input**: Labels, icons, validation, error states
 - **Card**: Multiple variants (default, elevated, outlined), hoverable animations

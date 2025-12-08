@@ -67,7 +67,9 @@ export default function HomePage() {
                   TypeScript
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-neutral-600">
-                  <p className="flex-auto">Fully typed with strict mode for better DX and fewer bugs.</p>
+                  <p className="flex-auto">
+                    Fully typed with strict mode for better DX and fewer bugs.
+                  </p>
                 </dd>
               </div>
             </dl>

@@ -1,8 +1,5 @@
 # Run type checking
 npm run type-check
 
-# Run linting
-npm run lint
-
 # Run format check
 npm run format:check

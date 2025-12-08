@@ -15,14 +15,7 @@ export interface CardProps {
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   (
-    {
-      children,
-      className,
-      variant = 'default',
-      hoverable = false,
-      padding = 'md',
-      onClick,
-    },
+    { children, className, variant = 'default', hoverable = false, padding = 'md', onClick },
     ref
   ) => {
     const baseStyles = 'rounded-xl transition-all duration-200';
@@ -40,9 +33,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       lg: 'p-8',
     };
 
-    const hoverStyles = hoverable
-      ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1'
-      : '';
+    const hoverStyles = hoverable ? 'cursor-pointer hover:shadow-xl hover:-translate-y-1' : '';
 
     return (
       <motion.div
@@ -91,10 +82,7 @@ interface CardTitleProps {
 export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, className }, ref) => {
     return (
-      <h3
-        ref={ref}
-        className={clsx('text-xl font-semibold text-neutral-900', className)}
-      >
+      <h3 ref={ref} className={clsx('text-xl font-semibold text-neutral-900', className)}>
         {children}
       </h3>
     );
@@ -108,16 +96,15 @@ interface CardDescriptionProps {
   className?: string;
 }
 
-export const CardDescription = forwardRef<
-  HTMLParagraphElement,
-  CardDescriptionProps
->(({ children, className }, ref) => {
-  return (
-    <p ref={ref} className={clsx('mt-1 text-sm text-neutral-600', className)}>
-      {children}
-    </p>
-  );
-});
+export const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
+  ({ children, className }, ref) => {
+    return (
+      <p ref={ref} className={clsx('mt-1 text-sm text-neutral-600', className)}>
+        {children}
+      </p>
+    );
+  }
+);
 
 CardDescription.displayName = 'CardDescription';
 

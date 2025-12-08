@@ -69,9 +69,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <ToastContext.Provider
-      value={{ toasts, addToast, removeToast, success, error, warning, info }}
-    >
+    <ToastContext.Provider value={{ toasts, addToast, removeToast, success, error, warning, info }}>
       {children}
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </ToastContext.Provider>
@@ -118,12 +116,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
 
   const icons = {
     success: (
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -133,12 +126,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
       </svg>
     ),
     error: (
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -148,12 +136,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
       </svg>
     ),
     warning: (
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -163,12 +146,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
       </svg>
     ),
     info: (
-      <svg
-        className="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
+      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -196,12 +174,7 @@ function ToastItem({ toast, onRemove }: ToastItemProps) {
         className="flex-shrink-0 rounded p-1 transition-colors hover:bg-black/10"
         aria-label="Close toast"
       >
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

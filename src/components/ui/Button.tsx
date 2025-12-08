@@ -47,8 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500 active:bg-secondary-800',
       outline:
         'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500 active:bg-primary-100',
-      ghost:
-        'text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500 active:bg-neutral-200',
+      ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500 active:bg-neutral-200',
       danger:
         'bg-error-DEFAULT text-white hover:bg-error-dark focus:ring-error-DEFAULT active:bg-error-dark',
     };

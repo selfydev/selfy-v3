@@ -52,9 +52,7 @@ export default function ComponentsDemoPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-12 text-center">
-            <h1 className="mb-4 text-5xl font-bold text-neutral-900">
-              UI Component Library
-            </h1>
+            <h1 className="mb-4 text-5xl font-bold text-neutral-900">UI Component Library</h1>
             <p className="text-xl text-neutral-600">
               Sprint 2 - Comprehensive component showcase with design tokens
             </p>
@@ -87,9 +85,7 @@ export default function ComponentsDemoPage() {
 
                   {/* Sizes */}
                   <div>
-                    <h4 className="mb-3 text-sm font-semibold uppercase text-neutral-500">
-                      Sizes
-                    </h4>
+                    <h4 className="mb-3 text-sm font-semibold uppercase text-neutral-500">Sizes</h4>
                     <div className="flex flex-wrap items-center gap-3">
                       <Button size="sm">Small</Button>
                       <Button size="md">Medium</Button>
@@ -116,9 +112,7 @@ export default function ComponentsDemoPage() {
             <Card variant="elevated">
               <CardHeader>
                 <CardTitle>Input Components</CardTitle>
-                <CardDescription>
-                  Form inputs with labels, icons, and validation
-                </CardDescription>
+                <CardDescription>Form inputs with labels, icons, and validation</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6 md:grid-cols-2">
@@ -162,21 +156,16 @@ export default function ComponentsDemoPage() {
 
             {/* Cards Section */}
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-neutral-900">
-                Card Components
-              </h2>
+              <h2 className="mb-6 text-2xl font-bold text-neutral-900">Card Components</h2>
               <div className="grid gap-6 md:grid-cols-3">
                 <Card variant="default">
                   <CardHeader>
                     <CardTitle>Default Card</CardTitle>
-                    <CardDescription>
-                      Standard card with border
-                    </CardDescription>
+                    <CardDescription>Standard card with border</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <p className="text-neutral-600">
-                      This card uses the default variant with a subtle border
-                      and background.
+                      This card uses the default variant with a subtle border and background.
                     </p>
                   </CardContent>
                 </Card>
@@ -210,14 +199,11 @@ export default function ComponentsDemoPage() {
                 <Card variant="elevated" hoverable>
                   <CardHeader>
                     <CardTitle>Interactive Hoverable Card</CardTitle>
-                    <CardDescription>
-                      Hover over this card to see animation
-                    </CardDescription>
+                    <CardDescription>Hover over this card to see animation</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <p className="text-neutral-600">
-                      This card includes hover animations powered by Framer
-                      Motion.
+                      This card includes hover animations powered by Framer Motion.
                     </p>
                   </CardContent>
                   <CardFooter>
@@ -234,17 +220,12 @@ export default function ComponentsDemoPage() {
             <Card variant="elevated">
               <CardHeader>
                 <CardTitle>Modal Component</CardTitle>
-                <CardDescription>
-                  Accessible modal dialogs with animations
-                </CardDescription>
+                <CardDescription>Accessible modal dialogs with animations</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex gap-3">
                   <Button onClick={handleOpenModal}>Open Modal</Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsModalOpen(true)}
-                  >
+                  <Button variant="outline" onClick={() => setIsModalOpen(true)}>
                     Open Another
                   </Button>
                 </div>
@@ -255,25 +236,19 @@ export default function ComponentsDemoPage() {
             <Card variant="elevated">
               <CardHeader>
                 <CardTitle>Toast Notifications</CardTitle>
-                <CardDescription>
-                  Contextual notifications with auto-dismiss
-                </CardDescription>
+                <CardDescription>Contextual notifications with auto-dismiss</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-3">
                   <Button
                     variant="primary"
-                    onClick={() =>
-                      success('Operation completed successfully!')
-                    }
+                    onClick={() => success('Operation completed successfully!')}
                   >
                     Success Toast
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() =>
-                      error('An error occurred. Please try again.')
-                    }
+                    onClick={() => error('An error occurred. Please try again.')}
                   >
                     Error Toast
                   </Button>
@@ -297,17 +272,13 @@ export default function ComponentsDemoPage() {
             <Card variant="elevated">
               <CardHeader>
                 <CardTitle>Icon Components</CardTitle>
-                <CardDescription>
-                  Comprehensive icon library with multiple sizes
-                </CardDescription>
+                <CardDescription>Comprehensive icon library with multiple sizes</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
                   {/* Sizes */}
                   <div>
-                    <h4 className="mb-3 text-sm font-semibold uppercase text-neutral-500">
-                      Sizes
-                    </h4>
+                    <h4 className="mb-3 text-sm font-semibold uppercase text-neutral-500">Sizes</h4>
                     <div className="flex items-center gap-4">
                       <Icon name="heart" size="xs" />
                       <Icon name="heart" size="sm" />
@@ -333,9 +304,7 @@ export default function ComponentsDemoPage() {
                       </div>
                       <div className="flex flex-col items-center gap-2">
                         <Icon name="settings" className="text-primary-600" />
-                        <span className="text-xs text-neutral-600">
-                          settings
-                        </span>
+                        <span className="text-xs text-neutral-600">settings</span>
                       </div>
                       <div className="flex flex-col items-center gap-2">
                         <Icon name="search" className="text-primary-600" />
@@ -368,42 +337,32 @@ export default function ComponentsDemoPage() {
               <CardHeader>
                 <CardTitle>Design Tokens Integration</CardTitle>
                 <CardDescription>
-                  All components use centralized design tokens from
-                  src/design/tokens.ts
+                  All components use centralized design tokens from src/design/tokens.ts
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
-                    <h4 className="mb-2 font-semibold text-neutral-900">
-                      Colors
-                    </h4>
+                    <h4 className="mb-2 font-semibold text-neutral-900">Colors</h4>
                     <p className="text-sm text-neutral-600">
-                      Primary, secondary, neutral, and semantic color scales
-                      (success, error, warning, info)
+                      Primary, secondary, neutral, and semantic color scales (success, error,
+                      warning, info)
                     </p>
                   </div>
                   <div>
-                    <h4 className="mb-2 font-semibold text-neutral-900">
-                      Typography
-                    </h4>
+                    <h4 className="mb-2 font-semibold text-neutral-900">Typography</h4>
                     <p className="text-sm text-neutral-600">
-                      Font families, sizes, weights, line heights, and letter
-                      spacing
+                      Font families, sizes, weights, line heights, and letter spacing
                     </p>
                   </div>
                   <div>
-                    <h4 className="mb-2 font-semibold text-neutral-900">
-                      Spacing
-                    </h4>
+                    <h4 className="mb-2 font-semibold text-neutral-900">Spacing</h4>
                     <p className="text-sm text-neutral-600">
                       Consistent spacing scale from 0.125rem to 24rem
                     </p>
                   </div>
                   <div>
-                    <h4 className="mb-2 font-semibold text-neutral-900">
-                      Effects
-                    </h4>
+                    <h4 className="mb-2 font-semibold text-neutral-900">Effects</h4>
                     <p className="text-sm text-neutral-600">
                       Border radius, shadows, and other visual effects
                     </p>
@@ -427,8 +386,8 @@ export default function ComponentsDemoPage() {
           </ModalHeader>
           <ModalBody>
             <p className="text-neutral-700">
-              This is a modal dialog demonstrating the Modal component with
-              proper accessibility features including:
+              This is a modal dialog demonstrating the Modal component with proper accessibility
+              features including:
             </p>
             <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-neutral-600">
               <li>Escape key to close</li>

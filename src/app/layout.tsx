@@ -1,7 +1,24 @@
 import type { Metadata } from 'next';
+import { EB_Garamond, Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { ToastProvider } from '@/components/ui/Toast';
+
+// Load EB Garamond font for headings
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-heading',
+  display: 'swap',
+});
+
+// Load Inter font for body text
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Selfy v3',
@@ -14,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" className={`${ebGaramond.variable} ${inter.variable}`}>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider>
           <ToastProvider>{children}</ToastProvider>
         </ThemeProvider>

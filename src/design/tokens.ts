@@ -1,68 +1,76 @@
 /**
  * Design Tokens for Selfy v3
- * These tokens are used throughout the application for consistent design
- * Can be synced with Figma design system
+ * Mapped from Figma design system
+ * Last updated: Sprint 2
  */
 
 export const colors = {
-  // Primary brand colors
+  // Primary brand colors (Orange)
   primary: {
-    50: '#f0f9ff',
-    100: '#e0f2fe',
-    200: '#bae6fd',
-    300: '#7dd3fc',
-    400: '#38bdf8',
-    500: '#0ea5e9',
-    600: '#0284c7',
-    700: '#0369a1',
-    800: '#075985',
-    900: '#0c4a6e',
-    950: '#082f49',
+    100: '#ffc9ab',
+    200: '#ff9256',
+    300: '#ff5c02', // Main brand color
+    400: '#c74700',
+    500: '#8d3200',
+    alpha: {
+      10: '#ff5c021a', // 10% opacity
+    },
   },
-  // Secondary colors
+  // Secondary colors (Purple)
   secondary: {
-    50: '#faf5ff',
-    100: '#f3e8ff',
-    200: '#e9d5ff',
-    300: '#d8b4fe',
-    400: '#c084fc',
-    500: '#a855f7',
-    600: '#9333ea',
-    700: '#7e22ce',
-    800: '#6b21a8',
-    900: '#581c87',
-    950: '#3b0764',
+    100: '#c4aaff',
+    200: '#8855ff',
+    300: '#4d00ff', // Main secondary color
+    400: '#3c00c6',
+    500: '#2a008c',
+    alpha: {
+      10: '#4d00ff1a', // 10% opacity
+    },
   },
   // Neutral/Gray scale
   neutral: {
-    50: '#fafafa',
-    100: '#f5f5f5',
-    200: '#e5e5e5',
-    300: '#d4d4d4',
-    400: '#a3a3a3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-    950: '#0a0a0a',
+    100: '#ffffff', // White
+    200: '#e8e8e8',
+    300: '#d2d2d2',
+    400: '#bbbbbb',
+    500: '#a4a4a4',
+    600: '#8e8e8e',
+    700: '#777777',
+    800: '#606060',
+    900: '#4a4a4a',
+    1000: '#333333', // Near black
+    alpha: {
+      10: '#3333331a', // 10% opacity
+    },
   },
-  // Semantic colors
+  // Semantic colors - Success (Green)
   success: {
-    light: '#d1fae5',
-    DEFAULT: '#10b981',
-    dark: '#065f46',
+    light: '#84ebb4',
+    DEFAULT: '#1fc16b',
+    dark: '#1fc16b',
+    alpha: {
+      10: '#1fc16b1a',
+    },
   },
+  // Semantic colors - Warning (Yellow)
   warning: {
-    light: '#fef3c7',
-    DEFAULT: '#f59e0b',
-    dark: '#92400e',
+    light: '#ffdb43',
+    DEFAULT: '#dfb400',
+    dark: '#dfb400',
+    alpha: {
+      10: '#ffdb431a',
+    },
   },
+  // Semantic colors - Error (Red)
   error: {
-    light: '#fee2e2',
-    DEFAULT: '#ef4444',
-    dark: '#991b1b',
+    light: '#fb3748',
+    DEFAULT: '#d00416',
+    dark: '#d00416',
+    alpha: {
+      10: '#fb37481a',
+    },
   },
+  // Semantic colors - Info (keep existing blue)
   info: {
     light: '#dbeafe',
     DEFAULT: '#3b82f6',
@@ -71,76 +79,58 @@ export const colors = {
 } as const;
 
 export const spacing = {
-  // Base spacing scale (px values)
+  // Base spacing scale from Figma (px values)
   0: '0px',
-  1: '0.25rem', // 4px
-  2: '0.5rem', // 8px
-  3: '0.75rem', // 12px
-  4: '1rem', // 16px
-  5: '1.25rem', // 20px
-  6: '1.5rem', // 24px
+  1: '0.125rem', // 2px
+  2: '0.25rem', // 4px
+  3: '0.5rem', // 8px
+  4: '0.75rem', // 12px
+  5: '1rem', // 16px
+  6: '1.25rem', // 20px
+  7: '1.5rem', // 24px
   8: '2rem', // 32px
-  10: '2.5rem', // 40px
-  12: '3rem', // 48px
-  16: '4rem', // 64px
-  20: '5rem', // 80px
-  24: '6rem', // 96px
-  32: '8rem', // 128px
-  40: '10rem', // 160px
-  48: '12rem', // 192px
-  56: '14rem', // 224px
-  64: '16rem', // 256px
+  9: '2.5rem', // 40px
+  10: '3rem', // 48px
+  11: '3.5rem', // 56px
 } as const;
 
 export const typography = {
   // Font families
   fontFamily: {
-    sans: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-    ],
-    mono: [
-      'ui-monospace',
-      'SFMono-Regular',
-      '"SF Mono"',
-      'Menlo',
-      'Consolas',
-      '"Liberation Mono"',
-      'monospace',
-    ],
+    heading: ['"EB Garamond"', 'Georgia', 'serif'],
+    body: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+    mono: ['ui-monospace', 'SFMono-Regular', '"SF Mono"', 'Menlo', 'Consolas', 'monospace'],
   },
-  // Font sizes
+  // Font sizes - Headings (EB Garamond)
   fontSize: {
-    xs: ['0.75rem', { lineHeight: '1rem' }], // 12px
-    sm: ['0.875rem', { lineHeight: '1.25rem' }], // 14px
-    base: ['1rem', { lineHeight: '1.5rem' }], // 16px
-    lg: ['1.125rem', { lineHeight: '1.75rem' }], // 18px
-    xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
-    '2xl': ['1.5rem', { lineHeight: '2rem' }], // 24px
-    '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
-    '4xl': ['2.25rem', { lineHeight: '2.5rem' }], // 36px
-    '5xl': ['3rem', { lineHeight: '1' }], // 48px
-    '6xl': ['3.75rem', { lineHeight: '1' }], // 60px
-    '7xl': ['4.5rem', { lineHeight: '1' }], // 72px
-    '8xl': ['6rem', { lineHeight: '1' }], // 96px
-    '9xl': ['8rem', { lineHeight: '1' }], // 128px
+    // Headings
+    h1: ['4.25rem', { lineHeight: '6.375rem', fontWeight: '500' }], // 68px
+    h2: ['3.5rem', { lineHeight: '5.25rem', fontWeight: '500' }], // 56px
+    h3: ['2.875rem', { lineHeight: '4.3125rem', fontWeight: '500' }], // 46px
+    h4: ['2.375rem', { lineHeight: '3.5625rem', fontWeight: '500' }], // 38px
+    h5: ['2rem', { lineHeight: '3rem', fontWeight: '500' }], // 32px
+    h6: ['1.625rem', { lineHeight: '2.4375rem', fontWeight: '500' }], // 26px
+    h7: ['1.375rem', { lineHeight: '2.0625rem', fontWeight: '500' }], // 22px
+
+    // Body text (Inter)
+    b1: ['1.125rem', { lineHeight: '1.6875rem', fontWeight: '500' }], // 18px
+    b2: ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }], // 16px (base)
+    b3: ['0.875rem', { lineHeight: '1.3125rem', fontWeight: '400' }], // 14px
+    b4: ['0.75rem', { lineHeight: '1.125rem', fontWeight: '400' }], // 12px
+    b5: ['0.625rem', { lineHeight: '0.9375rem', fontWeight: '400' }], // 10px
+
+    // Aliases for common usage
+    base: ['1rem', { lineHeight: '1.5rem', fontWeight: '400' }], // b2
+    sm: ['0.875rem', { lineHeight: '1.3125rem', fontWeight: '400' }], // b3
+    xs: ['0.75rem', { lineHeight: '1.125rem', fontWeight: '400' }], // b4
+    lg: ['1.125rem', { lineHeight: '1.6875rem', fontWeight: '500' }], // b1
   },
   // Font weights
   fontWeight: {
-    thin: '100',
-    extralight: '200',
-    light: '300',
     normal: '400',
     medium: '500',
     semibold: '600',
     bold: '700',
-    extrabold: '800',
-    black: '900',
   },
   // Line heights
   lineHeight: {
@@ -164,25 +154,51 @@ export const typography = {
 
 export const borderRadius = {
   none: '0px',
-  sm: '0.125rem', // 2px
-  DEFAULT: '0.25rem', // 4px
-  md: '0.375rem', // 6px
-  lg: '0.5rem', // 8px
-  xl: '0.75rem', // 12px
-  '2xl': '1rem', // 16px
-  '3xl': '1.5rem', // 24px
-  full: '9999px',
+  1: '0.125rem', // 2px
+  2: '0.25rem', // 4px
+  3: '0.375rem', // 6px
+  4: '0.5rem', // 8px
+  5: '0.625rem', // 10px
+  6: '0.75rem', // 12px
+  7: '1rem', // 16px
+  full: '62.4375rem', // 999px (full rounded)
+
+  // Aliases for component tokens
+  DEFAULT: '0.5rem', // 8px
+  sm: '0.375rem', // 6px (component s)
+  md: '0.5rem', // 8px (component m)
+  lg: '0.75rem', // 12px (component xl)
+  xl: '1rem', // 16px
 } as const;
 
 export const shadows = {
-  sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-  DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-  md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-  lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-  xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-  '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-  inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
   none: 'none',
+  // e0 - No shadow
+  0: '0 0 0 0 rgba(0, 0, 0, 0)',
+  // e1 - Small shadow with inner shadow
+  1: '4px 4px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  // e2 - Medium shadow with inner shadow
+  2: '6px 6px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  // e3 - Large shadow with inner shadow
+  3: '8px 8px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+
+  // Aliases for easier usage
+  sm: '4px 4px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  DEFAULT: '6px 6px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  md: '6px 6px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+  lg: '8px 8px 0px 0px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(0, 0, 0, 1)',
+} as const;
+
+export const stroke = {
+  0: '1px',
+  1: '2px',
+  2: '4px',
+  3: '6px',
+
+  // Aliases
+  sm: '1px',
+  DEFAULT: '2px',
+  lg: '4px',
 } as const;
 
 export const breakpoints = {
@@ -203,6 +219,106 @@ export const zIndex = {
   auto: 'auto',
 } as const;
 
+// Component-specific tokens
+export const componentTokens = {
+  // Gap sizes
+  gap: {
+    '3xs': '0.125rem', // 2px
+    '2xs': '0.25rem', // 4px
+    xs: '0.5rem', // 8px
+  },
+  // Padding sizes
+  padding: {
+    '2xs': '0.125rem', // 2px
+    xs: '0.25rem', // 4px
+    s: '0.5rem', // 8px
+    m: '0.75rem', // 12px
+    l: '1rem', // 16px
+  },
+  // Fill colors (semantic component colors)
+  fill: {
+    brand1: {
+      default: '#ff5c02',
+      strong: '#ff5c02',
+      subtle: '#ffc9ab',
+    },
+    brand2: {
+      default: '#4d00ff',
+      subtle: '#c4aaff',
+    },
+    neutrals: {
+      white: '#ffffff',
+      subtle: '#ffffff',
+    },
+    status: {
+      disabled: '#ffffff',
+      error: {
+        default: '#fb3748',
+        subtle: '#fb37481a',
+      },
+      success: {
+        default: '#1fc16b',
+        subtle: '#1fc16b1a',
+      },
+      warning: {
+        default: '#ffdb43',
+        subtle: '#ffdb431a',
+      },
+    },
+  },
+  // Stroke colors
+  stroke: {
+    brand1: {
+      default: '#ff5c02',
+      strong: '#ff5c02',
+    },
+    brand2: {
+      default: '#c4aaff',
+    },
+    focus: {
+      default: '#ff5c021a',
+      error: '#fb37481a',
+    },
+    primary: {
+      default: '#e8e8e8',
+      strong: '#d2d2d2',
+    },
+    status: {
+      disabled: '#e8e8e8',
+      error: '#fb3748',
+      success: '#1fc16b',
+      warning: '#ffdb43',
+    },
+  },
+  // Icon colors
+  icon: {
+    white: '#ffffff',
+    black: '#4a4a4a',
+    grey: '#a4a4a4',
+    brand1: '#ff5c02',
+    status: {
+      disabled: '#e8e8e8',
+      error: '#fb3748',
+      success: '#1fc16b',
+      caution: '#ffdb43',
+    },
+  },
+  // Text colors
+  text: {
+    inverse: '#ffffff',
+    primary: '#4a4a4a',
+    secondary: '#a4a4a4',
+    brand1: '#ff5c02',
+    brand2: '#4d00ff',
+    status: {
+      disabled: '#e8e8e8',
+      error: '#fb3748',
+      success: '#1fc16b',
+      warning: '#ffdb43',
+    },
+  },
+} as const;
+
 // Export all tokens as a single object for easy import
 export const designTokens = {
   colors,
@@ -210,8 +326,10 @@ export const designTokens = {
   typography,
   borderRadius,
   shadows,
+  stroke,
   breakpoints,
   zIndex,
+  componentTokens,
 } as const;
 
 export default designTokens;

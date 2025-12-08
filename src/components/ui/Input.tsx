@@ -72,10 +72,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={clsx('flex flex-col gap-1', fullWidth ? 'w-full' : '')}>
         {label && (
-          <label
-            htmlFor={inputId}
-            className="text-sm font-medium text-neutral-700"
-          >
+          <label htmlFor={inputId} className="text-sm font-medium text-neutral-700">
             {label}
           </label>
         )}
@@ -94,13 +91,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className={clsx(
-              baseStyles,
-              stateStyles,
-              widthStyles,
-              paddingStyles,
-              className
-            )}
+            className={clsx(baseStyles, stateStyles, widthStyles, paddingStyles, className)}
             onFocus={(e) => {
               setIsFocused(true);
               onFocusProp?.(e);
@@ -135,9 +126,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </motion.p>
         )}
 
-        {helperText && !error && (
-          <p className="text-sm text-neutral-600">{helperText}</p>
-        )}
+        {helperText && !error && <p className="text-sm text-neutral-600">{helperText}</p>}
       </div>
     );
   }

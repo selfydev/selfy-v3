@@ -17,11 +17,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Future sprints can add theme switching functionality
   const theme: Theme = 'light';
 
-  return (
-    <ThemeContext.Provider value={{ theme, tokens }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, tokens }}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {

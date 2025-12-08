@@ -132,10 +132,7 @@ interface ModalHeaderProps {
 export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
   ({ children, className }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={clsx('border-b border-neutral-200 px-6 py-4', className)}
-      >
+      <div ref={ref} className={clsx('border-b border-neutral-200 px-6 py-4', className)}>
         {children}
       </div>
     );
@@ -152,10 +149,7 @@ interface ModalTitleProps {
 export const ModalTitle = forwardRef<HTMLHeadingElement, ModalTitleProps>(
   ({ children, className }, ref) => {
     return (
-      <h2
-        ref={ref}
-        className={clsx('text-xl font-semibold text-neutral-900', className)}
-      >
+      <h2 ref={ref} className={clsx('text-xl font-semibold text-neutral-900', className)}>
         {children}
       </h2>
     );
