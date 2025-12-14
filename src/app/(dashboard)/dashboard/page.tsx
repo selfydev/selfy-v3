@@ -1,5 +1,7 @@
 import { getCurrentUser } from '@/lib/auth-utils';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import { PermissionDeniedAlert } from '@/components/dashboard/PermissionDeniedAlert';
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -10,6 +12,9 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <Suspense>
+        <PermissionDeniedAlert />
+      </Suspense>
       {/* Page Header with User Info */}
       <div className="rounded-lg bg-white p-6 shadow">
         <h2 className="text-2xl font-bold text-neutral-900">Dashboard Overview</h2>
@@ -26,6 +31,10 @@ export default async function DashboardPage() {
             <div className="flex justify-between text-sm">
               <dt className="text-neutral-600">Email:</dt>
               <dd className="font-medium text-neutral-900">{user.email}</dd>
+            </div>
+            <div className="flex justify-between text-sm">
+              <dt className="text-neutral-600">Role:</dt>
+              <dd className="font-medium text-neutral-900">{user.role}</dd>
             </div>
             <div className="flex justify-between text-sm">
               <dt className="text-neutral-600">User ID:</dt>

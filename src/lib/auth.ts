@@ -41,6 +41,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           image: user.image,
+          role: user.role,
         };
       },
     }),
@@ -63,15 +64,26 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token['id'] = user.id;
+        token['role'] = user.role;
+      } else if (trigger === 'update' || !token['role']) {
+        // Fetch fresh user data from database if role is missing
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token['id'] as string },
+          select: { role: true },
+        });
+        if (dbUser) {
+          token['role'] = dbUser.role;
+        }
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token['id'] as string;
+        session.user.role = token['role'] as any;
       }
       return session;
     },

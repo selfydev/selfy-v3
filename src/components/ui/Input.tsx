@@ -22,6 +22,9 @@ export interface InputProps {
   disabled?: boolean;
   required?: boolean;
   autoComplete?: string;
+  min?: string | number;
+  max?: string | number;
+  step?: string | number;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -44,6 +47,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled,
       required,
       autoComplete,
+      min,
+      max,
+      step,
     },
     ref
   ) => {
@@ -103,6 +109,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             required={required}
             autoComplete={autoComplete}
+            min={min}
+            max={max}
+            step={step}
             animate={{
               scale: isFocused ? 1.01 : 1,
             }}
