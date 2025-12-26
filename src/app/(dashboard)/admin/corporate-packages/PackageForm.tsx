@@ -223,7 +223,7 @@ export default function PackageForm({ initialData, packageId, mode, orgs }: Pack
         >
           Cancel
         </Button>
-        <Button type="submit" variant="default" disabled={isSubmitting}>
+        <Button type="submit" variant="default" disabled={isSubmitting} isLoading={isSubmitting}>
           {mode === 'create' ? 'Create Package' : 'Update Package'}
         </Button>
       </div>

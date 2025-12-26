@@ -198,4 +198,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 
 ModalFooter.displayName = 'ModalFooter';
 
+// Named exports for Modal and sub-components
+export { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter };
+
 export default Modal;

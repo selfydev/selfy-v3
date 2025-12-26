@@ -248,7 +248,7 @@ export default function ProductListClient({ initialProducts }: ProductListClient
           <Button
             variant="destructive"
             onClick={handleDeleteConfirm}
-            
+            isLoading={isDeleting}
             disabled={isDeleting || !!(productToDelete && productToDelete._count.bookings > 0)}
           >
             Delete

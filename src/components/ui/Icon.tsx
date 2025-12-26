@@ -310,4 +310,7 @@ const Icon = forwardRef<SVGSVGElement, IconProps>(
 
 Icon.displayName = 'Icon';
 
+// Named export for compatibility
+export { Icon };
+
 export default Icon;

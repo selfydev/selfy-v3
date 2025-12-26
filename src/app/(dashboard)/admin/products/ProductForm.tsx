@@ -176,7 +176,7 @@ export default function ProductForm({ initialData, productId, mode }: ProductFor
         >
           Cancel
         </Button>
-        <Button type="submit" variant="default" disabled={isSubmitting}>
+        <Button type="submit" variant="default" disabled={isSubmitting} isLoading={isSubmitting}>
           {mode === 'create' ? 'Create Product' : 'Update Product'}
         </Button>
       </div>

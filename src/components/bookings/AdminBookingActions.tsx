@@ -439,7 +439,7 @@ export function AdminBookingActions({
             variant="default"
             onClick={handleAction}
             disabled={isProcessing}
-            
+            isLoading={isProcessing}
             className={modalContent.buttonClass}
           >
             {modalContent.buttonText}

@@ -274,7 +274,7 @@ export default function OrgListClient({ initialOrgs }: OrgListClientProps) {
           <Button
             variant="destructive"
             onClick={handleDeleteConfirm}
-            
+            isLoading={isDeleting}
             disabled={
               isDeleting ||
               !!(

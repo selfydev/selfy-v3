@@ -241,7 +241,7 @@ export default function OrgForm({ initialData, orgId, mode, users }: OrgFormProp
         >
           Cancel
         </Button>
-        <Button type="submit" variant="default" disabled={isSubmitting}>
+        <Button type="submit" variant="default" disabled={isSubmitting} isLoading={isSubmitting}>
           {mode === 'create' ? 'Create Organization' : 'Update Organization'}
         </Button>
       </div>

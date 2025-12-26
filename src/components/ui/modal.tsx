@@ -70,7 +70,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-foreground/50 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
               onClick={closeOnOverlayClick ? onClose : undefined}
             />
 
@@ -83,7 +83,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.2 }}
                 className={clsx(
-                  'relative w-full rounded-xl bg-card shadow-2xl',
+                  'relative w-full rounded-xl bg-white shadow-2xl',
                   sizeStyles[size],
                   className
                 )}
@@ -92,7 +92,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
                 {showCloseButton && (
                   <button
                     onClick={onClose}
-                    className="absolute right-4 top-4 rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-muted-foreground"
+                    className="absolute right-4 top-4 rounded-lg p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
                     aria-label="Close modal"
                   >
                     <svg
@@ -132,7 +132,7 @@ interface ModalHeaderProps {
 export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
   ({ children, className }, ref) => {
     return (
-      <div ref={ref} className={clsx('border-b border-border px-6 py-4', className)}>
+      <div ref={ref} className={clsx('border-b border-neutral-200 px-6 py-4', className)}>
         {children}
       </div>
     );
@@ -149,7 +149,7 @@ interface ModalTitleProps {
 export const ModalTitle = forwardRef<HTMLHeadingElement, ModalTitleProps>(
   ({ children, className }, ref) => {
     return (
-      <h2 ref={ref} className={clsx('text-xl font-semibold text-foreground', className)}>
+      <h2 ref={ref} className={clsx('text-xl font-semibold text-neutral-900', className)}>
         {children}
       </h2>
     );
@@ -186,7 +186,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
       <div
         ref={ref}
         className={clsx(
-          'flex items-center justify-end gap-2 border-t border-border px-6 py-4',
+          'flex items-center justify-end gap-2 border-t border-neutral-200 px-6 py-4',
           className
         )}
       >
@@ -198,5 +198,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 
 ModalFooter.displayName = 'ModalFooter';
 
-export { Modal };
+// Named exports for Modal and sub-components
+export { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter };
+
 export default Modal;

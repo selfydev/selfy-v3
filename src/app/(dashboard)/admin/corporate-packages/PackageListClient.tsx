@@ -268,7 +268,7 @@ export default function PackageListClient({ initialPackages }: PackageListClient
           <Button
             variant="destructive"
             onClick={handleDeleteConfirm}
-            
+            isLoading={isDeleting}
             disabled={isDeleting || !!(packageToDelete && packageToDelete._count.bookings > 0)}
           >
             Delete

@@ -243,7 +243,7 @@ export default function QuoteRequestsClient({ initialQuoteRequests }: QuoteReque
             variant="default"
             onClick={handleApproveConfirm}
             disabled={isApproving}
-            
+            isLoading={isApproving}
           >
             Approve Quote
           </Button>

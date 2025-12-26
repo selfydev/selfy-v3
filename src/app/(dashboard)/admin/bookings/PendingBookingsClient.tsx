@@ -293,7 +293,7 @@ export default function PendingBookingsClient({ initialBookings }: PendingBookin
             variant="default"
             onClick={handleApproveConfirm}
             disabled={isProcessing}
-            
+            isLoading={isProcessing}
           >
             Approve Booking
           </Button>
@@ -331,7 +331,7 @@ export default function PendingBookingsClient({ initialBookings }: PendingBookin
             variant="default"
             onClick={handleRejectConfirm}
             disabled={isProcessing}
-            
+            isLoading={isProcessing}
             className="bg-destructive hover:bg-destructive/90"
           >
             Reject Booking
