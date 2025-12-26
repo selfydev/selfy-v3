@@ -1,0 +1,165 @@
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+
+export async function POST(request: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { productId, scheduledAt, notes, orgId, packageId, finalPrice } = body;
+
+    if (!productId || !scheduledAt || finalPrice === undefined) {
+      return NextResponse.json(
+        { error: 'Product ID, scheduled time, and final price are required' },
+        { status: 400 }
+      );
+    }
+
+    // Verify product exists and is active
+    const product = await prisma.product.findUnique({
+      where: { id: productId, isActive: true },
+    });
+
+    if (!product) {
+      return NextResponse.json({ error: 'Product not found or inactive' }, { status: 404 });
+    }
+
+    // If package is selected, verify it and update credits
+    if (packageId) {
+      const corporatePackage = await prisma.corporatePackage.findUnique({
+        where: { id: packageId, isActive: true },
+      });
+
+      if (!corporatePackage) {
+        return NextResponse.json(
+          { error: 'Corporate package not found or inactive' },
+          { status: 404 }
+        );
+      }
+
+      // Check if package has available credits
+      if (corporatePackage.usedCredits >= corporatePackage.totalCredits) {
+        return NextResponse.json({ error: 'Package has no remaining credits' }, { status: 400 });
+      }
+
+      // Check if package is expired
+      if (corporatePackage.expiresAt && new Date(corporatePackage.expiresAt) < new Date()) {
+        return NextResponse.json({ error: 'Package has expired' }, { status: 400 });
+      }
+    }
+
+    // Generate unique booking number
+    // Generate unique booking number (use timestamp to avoid race conditions)
+    const year = new Date().getFullYear();
+    const timestamp = Date.now().toString().slice(-6); // Last 6 digits of timestamp
+    const bookingNumber = `BK-${year}-${timestamp}`;
+
+    // Create booking in a transaction
+    const booking = await prisma.$transaction(async (tx) => {
+      // Create the booking
+      const newBooking = await tx.booking.create({
+        data: {
+          bookingNumber,
+          customerId: session.user.id,
+          productId,
+          scheduledAt: new Date(scheduledAt),
+          notes: notes || null,
+          orgId: orgId || null,
+          packageId: packageId || null,
+          finalPrice,
+          status: 'PENDING',
+        },
+        include: {
+          product: true,
+          customer: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          org: true,
+          package: true,
+        },
+      });
+
+      // Create timeline entry
+      await tx.bookingTimeline.create({
+        data: {
+          bookingId: newBooking.id,
+          userId: session.user.id,
+          action: 'CREATED',
+          details: 'Booking created by customer',
+        },
+      });
+
+      // If using a package, increment used credits
+      if (packageId) {
+        await tx.corporatePackage.update({
+          where: { id: packageId },
+          data: {
+            usedCredits: {
+              increment: 1,
+            },
+          },
+        });
+      }
+
+      return newBooking;
+    });
+
+    return NextResponse.json(
+      {
+        booking,
+        message: 'Booking created successfully',
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Booking creation error:', error);
+    return NextResponse.json({ error: 'Failed to create booking' }, { status: 500 });
+  }
+}
+
+export async function GET(_request: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Get user's bookings
+    const bookings = await prisma.booking.findMany({
+      where: {
+        customerId: session.user.id,
+      },
+      include: {
+        product: true,
+        assignedStaff: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        org: true,
+        package: true,
+      },
+      orderBy: {
+        scheduledAt: 'desc',
+      },
+    });
+
+    return NextResponse.json({ bookings });
+  } catch (error) {
+    console.error('Fetch bookings error:', error);
+    return NextResponse.json({ error: 'Failed to fetch bookings' }, { status: 500 });
+  }
+}
