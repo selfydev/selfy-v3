@@ -173,6 +173,34 @@ export default async function BookingDetailPage({ params }: BookingDetailPagePro
         </div>
       )}
 
+      {/* Create Template CTA - Only for confirmed bookings */}
+      {booking.status === 'CONFIRMED' && isOwner && (
+        <div className="rounded-lg bg-gradient-to-r from-primary/10 to-primary/5 border-2 border-primary/20 p-6">
+          <div className="flex items-center gap-4">
+            <div className="flex-shrink-0 h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-foreground">🎨 Create Your Photo Booth Template</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Your booking is confirmed! Design a custom overlay for your event photos.
+              </p>
+            </div>
+            <Link
+              href={`/bookings/${booking.id}/template`}
+              className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-medium transition-colors"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              Create Template
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Quote Approved Banner */}
       {booking.quoteApprovedAt && (
         <div className="rounded-lg bg-muted border-2 border-green-400 p-4">

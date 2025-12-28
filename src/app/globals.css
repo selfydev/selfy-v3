@@ -123,3 +123,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+  /* Force Fabric.js canvases to be fully visible */
+  .lower-canvas,
+  .upper-canvas {
+    overflow: visible !important;
+  }

@@ -82,6 +82,12 @@ enum TemplateCategory {
   MARKETING
 }
 
+enum AssetType {
+  LOGO
+  IMAGE
+  FONT
+}
+
 // ========================================
 // NEXTAUTH MODELS
 // ========================================
@@ -162,6 +168,10 @@ model User {
   notifications     Notification[]
   auditLogs         AuditLog[]
   timelineEntries   BookingTimeline[]
+
+  // Design template relations
+  designTemplates DesignTemplate[] @relation("UserDesignTemplates")
+  userAssets      UserAsset[]      @relation("UserAssets")
 
   @@index([email])
   @@index([role])
@@ -356,12 +366,17 @@ model Booking {
   invoiceSentAt DateTime?
   invoicePdfUrl String?  @db.Text
 
+  // Template submission tracking
+    templateSubmitted   Boolean   @default(false)
+    templateSubmittedAt DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  timeline BookingTimeline[]
-  payments Payment[]
-  addOns   BookingAddOn[]
+  timeline       BookingTimeline[]
+  payments       Payment[]
+  addOns         BookingAddOn[]
+  designTemplate DesignTemplate?
 
   @@index([customerId])
   @@index([productId])
@@ -474,6 +489,54 @@ model TemplateVersion {
 
   @@unique([templateId, version])
   @@index([templateId])
+}
+
+// ========================================
+// DESIGN TEMPLATE MODELS (Photo Booth Overlays)
+// ========================================
+
+model DesignTemplate {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  status      String  @default("APPROVED") // Auto-approved on creation
+
+  // Template ownership
+  userId    String?
+  user      User?    @relation("UserDesignTemplates", fields: [userId], references: [id])
+  bookingId String?  @unique
+  booking   Booking? @relation(fields: [bookingId], references: [id])
+
+  // Template data
+  canvasData   Json?   // Fabric.js JSON export
+  thumbnailUrl String? // Preview image URL
+
+  // Template type
+  isSystemTemplate Boolean @default(false) // Pre-built starter templates
+  isPremium        Boolean @default(false) // Requires payment to use
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isSystemTemplate])
+  @@index([isPremium])
+}
+
+model UserAsset {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation("UserAssets", fields: [userId], references: [id], onDelete: Cascade)
+
+  name     String
+  type     AssetType
+  url      String    // Cloudinary URL
+  publicId String    // Cloudinary public ID for deletion
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([type])
 }
 
 // ========================================

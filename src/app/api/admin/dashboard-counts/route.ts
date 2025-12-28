@@ -24,7 +24,7 @@ export async function GET() {
     }
 
     // Get counts for pending items
-    const [pendingBookings, quoteRequests] = await Promise.all([
+    const [pendingBookings, quoteRequests, submittedTemplates] = await Promise.all([
       // Pending bookings that need approval (paid but not confirmed)
       prisma.booking.count({
         where: {
@@ -38,11 +38,18 @@ export async function GET() {
           quoteRequested: true,
         },
       }),
+      // Submitted templates (all templates that have been submitted)
+      prisma.booking.count({
+        where: {
+          templateSubmitted: true,
+        },
+      }),
     ]);
 
     return NextResponse.json({
       pendingBookings,
       quoteRequests,
+      submittedTemplates,
     });
   } catch (error) {
     console.error('Dashboard counts error:', error);

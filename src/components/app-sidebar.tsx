@@ -23,6 +23,8 @@ import {
   IconUserCircle,
   IconDotsVertical,
   IconNotification,
+  IconCalendarEvent,
+  IconPalette,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -57,6 +59,7 @@ import {
 interface AdminCounts {
   pendingBookings: number;
   quoteRequests: number;
+  submittedTemplates: number;
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -68,6 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [adminCounts, setAdminCounts] = React.useState<AdminCounts>({
     pendingBookings: 0,
     quoteRequests: 0,
+    submittedTemplates: 0,
   })
 
   React.useEffect(() => {
@@ -91,6 +95,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       url: "/dashboard",
       icon: IconDashboard,
       isActive: pathname === "/dashboard",
+    },
+    {
+      title: "My Bookings",
+      url: "/bookings",
+      icon: IconCalendarEvent,
+      isActive: pathname === "/bookings" || pathname?.startsWith("/bookings/"),
     },
     {
       title: "Products",
@@ -129,11 +139,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       isActive: pathname === "/admin/bookings/quotes",
       badge: adminCounts.quoteRequests,
     },
-    { 
-      title: "All Bookings", 
-      url: "/admin/bookings/all", 
+    {
+      title: "All Bookings",
+      url: "/admin/bookings/all",
       icon: IconCheck,
       isActive: pathname === "/admin/bookings/all",
+    },
+    {
+      title: "Templates",
+      url: "/admin/templates",
+      icon: IconPalette,
+      isActive: pathname === "/admin/templates" || pathname?.startsWith("/admin/templates/"),
+      badge: adminCounts.submittedTemplates,
     },
   ]
 

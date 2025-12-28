@@ -101,6 +101,7 @@ export function BookingFlow({
   const [_isLoading, setIsLoading] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [draftId, setDraftId] = useState<string | null>(null);
+  const [draftSavePending, setDraftSavePending] = useState(false); // Prevent race condition
   const [createdBookingId, setCreatedBookingId] = useState<string | null>(null);
   
   const [formData, setFormData] = useState<BookingFormData>({
@@ -126,7 +127,14 @@ export function BookingFlow({
   }, [formData, currentStep]);
 
   const autoSaveDraft = async () => {
-    if (isSavingDraft) return;
+    // Prevent multiple simultaneous draft creations (race condition fix)
+    if (isSavingDraft || draftSavePending) return;
+    
+    // If no draftId yet, mark as pending to prevent duplicate creations
+    if (!draftId) {
+      setDraftSavePending(true);
+    }
+    
     setIsSavingDraft(true);
     try {
       const response = await fetch('/api/bookings/draft', {
@@ -149,6 +157,7 @@ export function BookingFlow({
       // Silent fail
     } finally {
       setIsSavingDraft(false);
+      setDraftSavePending(false);
     }
   };
 

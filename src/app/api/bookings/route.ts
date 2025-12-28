@@ -698,12 +698,53 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(_request: Request) {
+export async function GET(request: Request) {
   try {
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const bookingId = searchParams.get('id');
+
+    // If ID is provided, fetch single booking
+    if (bookingId) {
+      const booking = await prisma.booking.findUnique({
+        where: { id: bookingId },
+        include: {
+          product: true,
+          assignedStaff: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          org: true,
+          package: true,
+          designTemplate: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      if (!booking) {
+        return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
+      }
+
+      // Check if user has access to this booking
+      const isOwner = booking.customerId === session.user.id;
+      const isAdmin = session.user.role === 'ADMIN' || session.user.role === 'STAFF';
+      
+      if (!isOwner && !isAdmin) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      }
+
+      return NextResponse.json(booking);
     }
 
     // Get user's bookings
