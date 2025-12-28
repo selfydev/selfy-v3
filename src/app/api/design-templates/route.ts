@@ -5,6 +5,13 @@ import { prisma } from '@/lib/prisma';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { DesignTemplate } from '@prisma/client';
 
+// Helper: Check if template is locked (2 hours before event)
+function isTemplateLocked(scheduledAt: Date): boolean {
+  const lockTime = new Date(scheduledAt);
+  lockTime.setHours(lockTime.getHours() - 2);
+  return new Date() >= lockTime;
+}
+
 // GET /api/design-templates - Get templates (system templates + user's own)
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +24,7 @@ export async function GET(request: NextRequest) {
     const bookingId = searchParams.get('bookingId');
     const systemOnly = searchParams.get('systemOnly') === 'true';
 
-    // If requesting for a specific booking, return that template
+    // If requesting for a specific booking, return that template with lock status
     if (bookingId) {
       const template = await prisma.designTemplate.findFirst({
         where: {
@@ -26,8 +33,26 @@ export async function GET(request: NextRequest) {
             customerId: session.user.id,
           },
         },
+        include: {
+          booking: {
+            select: {
+              scheduledAt: true,
+            },
+          },
+        },
       });
-      return NextResponse.json(template);
+
+      if (!template || !template.booking) {
+        return NextResponse.json(null);
+      }
+
+      // Calculate lock status
+      const isLocked = isTemplateLocked(template.booking.scheduledAt);
+
+      return NextResponse.json({
+        ...template,
+        isLocked,
+      });
     }
 
     // Get system templates (starter templates)
@@ -84,7 +109,7 @@ export async function POST(request: NextRequest) {
       where: {
         id: bookingId,
         customerId: session.user.id,
-        status: 'CONFIRMED',
+        status: { in: ['CONFIRMED', 'COMPLETED'] },
       },
     });
 
@@ -92,6 +117,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Booking not found or not confirmed' },
         { status: 404 }
+      );
+    }
+
+    // Check if template is locked (2 hours before event)
+    if (isTemplateLocked(booking.scheduledAt)) {
+      return NextResponse.json(
+        { error: 'Template is locked. Changes cannot be made within 2 hours of the event.' },
+        { status: 403 }
       );
     }
 
@@ -135,13 +168,14 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // Mark booking as having template submitted (first submission only)
+      // Mark booking as completed with template submitted (first submission only)
       if (!booking.templateSubmitted) {
         await prisma.booking.update({
           where: { id: bookingId },
           data: {
             templateSubmitted: true,
             templateSubmittedAt: new Date(),
+            status: 'COMPLETED', // Mark booking as complete
           },
         });
 

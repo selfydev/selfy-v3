@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft, AlertCircle, CheckCircle2, Palette, Upload, FileImage } from 'lucide-react';
+import { ArrowLeft, AlertCircle, CheckCircle2, Palette, Upload, FileImage, Lock } from 'lucide-react';
 import { StarterTemplates, STARTER_TEMPLATES } from '@/components/editor/StarterTemplates';
 import { useToast } from '@/components/ui/toast';
 import { Canvas, FabricImage } from 'fabric';
@@ -55,6 +55,10 @@ interface ExistingTemplate {
   name: string;
   canvasData: CanvasData;
   thumbnailUrl?: string;
+  isLocked?: boolean;
+  booking?: {
+    scheduledAt: string;
+  };
 }
 
 export default function TemplateEditorPage() {
@@ -87,8 +91,8 @@ export default function TemplateEditorPage() {
         const bookingData = await bookingRes.json();
         setBooking(bookingData);
 
-        // Check if booking is confirmed
-        if (bookingData.status !== 'CONFIRMED') {
+        // Check if booking is confirmed or completed
+        if (bookingData.status !== 'CONFIRMED' && bookingData.status !== 'COMPLETED') {
           setError('Your booking must be confirmed before you can create a template.');
           setIsLoading(false);
           return;
@@ -217,14 +221,16 @@ export default function TemplateEditorPage() {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to save template');
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to save template');
       }
 
       const savedTemplate = await res.json();
       setExistingTemplate(savedTemplate);
       success('Template saved successfully!');
     } catch (err) {
-      showError('Failed to save template. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to save template. Please try again.';
+      showError(errorMessage);
       throw err;
     }
   }, [bookingId, booking, success, showError]);
@@ -298,8 +304,19 @@ export default function TemplateEditorPage() {
         </div>
       </div>
 
+      {/* Template Locked Warning */}
+      {existingTemplate?.isLocked && (
+        <Alert variant="destructive">
+          <Lock className="h-4 w-4" />
+          <AlertTitle>Template Locked</AlertTitle>
+          <AlertDescription>
+            This template is locked and cannot be edited. Changes cannot be made within 2 hours of your event.
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Existing Template Notice */}
-      {existingTemplate && step === 'edit' && (
+      {existingTemplate && step === 'edit' && !existingTemplate.isLocked && (
         <Alert>
           <CheckCircle2 className="h-4 w-4" />
           <AlertTitle>Template Saved</AlertTitle>
@@ -433,11 +450,33 @@ export default function TemplateEditorPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <TemplateEditor
-              bookingId={bookingId}
-              initialData={initialCanvasData}
-              onSave={handleSave}
-            />
+            {existingTemplate?.isLocked ? (
+              <div className="space-y-4">
+                <Alert variant="destructive">
+                  <Lock className="h-4 w-4" />
+                  <AlertTitle>View Only Mode</AlertTitle>
+                  <AlertDescription>
+                    This template is locked and cannot be edited. You can view your template below.
+                  </AlertDescription>
+                </Alert>
+                {/* Show preview only when locked */}
+                {existingTemplate.thumbnailUrl && (
+                  <div className="rounded-lg border bg-muted p-4">
+                    <img
+                      src={existingTemplate.thumbnailUrl}
+                      alt="Template preview"
+                      className="mx-auto rounded"
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <TemplateEditor
+                bookingId={bookingId}
+                initialData={initialCanvasData}
+                onSave={handleSave}
+              />
+            )}
           </CardContent>
         </Card>
       )}
