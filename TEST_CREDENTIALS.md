@@ -2,15 +2,36 @@
 
 This document contains login credentials for testing different user roles in the Selfy platform.
 
-## Creating Test Users
+## Creating Test Data
 
-Run the seeding script to create test users:
+Run the seeding scripts to create test users and products:
 
 ```bash
-npm run seed:users
+# Seed everything at once
+npm run seed:all
+
+# Or seed individually
+npm run seed:products  # Create photo booth packages
+npm run seed:users     # Create test user accounts
 ```
 
-This script is **idempotent** - you can run it multiple times safely. It will create users if they don't exist or skip them if they already do.
+All scripts are **idempotent** - you can run them multiple times safely. They will create data if it doesn't exist or skip it if it already does.
+
+---
+
+## Available Products (Photo Booth Packages)
+
+The following packages are available for booking:
+
+| Package | Price | Duration | Description |
+|---------|-------|----------|-------------|
+| 2 Hour Package | $299.99 | 2 hours | Perfect for small events |
+| 3 Hour Package ⭐ | $449.99 | 3 hours | Most popular! |
+| 4 Hour Package | $599.99 | 4 hours | Extended coverage |
+| Influencer Package | $399.99 | 2 hours | For content creators |
+| Corporate Package | $549.99 | 3 hours | Professional events |
+| Wedding Deluxe 💍 | $749.99 | 5 hours | Premium wedding package |
+| Custom Package | $799.99 | 4 hours | Fully customizable |
 
 ---
 
