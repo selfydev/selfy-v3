@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/toast';
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@/components/ui/modal';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/lib/date-utils';
 
 interface Seat {

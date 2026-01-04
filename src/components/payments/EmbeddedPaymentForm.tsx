@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 
 interface EmbeddedPaymentFormProps {
   bookingId: string;

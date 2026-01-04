@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@/components/ui/modal';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { formatDate, formatDateTime, formatTime } from '@/lib/date-utils';
 
 interface Booking {

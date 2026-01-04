@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@/components/ui/modal';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 
 interface CorporateOrg {
   id: string;

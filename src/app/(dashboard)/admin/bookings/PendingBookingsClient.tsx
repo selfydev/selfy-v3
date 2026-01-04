@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/toast';
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter } from '@/components/ui/modal';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/lib/date-utils';
 
 interface PendingBooking {
