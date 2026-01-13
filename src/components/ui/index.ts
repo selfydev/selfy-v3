@@ -1,7 +1,7 @@
 // Re-export shadcn/ui components
 
 // Button
-export { Button, buttonVariants } from './button';
+export { Button, buttonVariants } from './Button';
 
 // Input
 export { Input } from './input';

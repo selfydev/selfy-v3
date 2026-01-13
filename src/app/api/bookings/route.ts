@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { inngest } from '@/lib/inngest/client';
 
 
 
@@ -675,6 +676,28 @@ export async function POST(request: Request) {
         },
         { status: 201 }
       );
+    }
+
+    // Emit Inngest event for booking created (only for non-draft, confirmed bookings)
+    if (!isDraft && (booking.status === 'PENDING' || booking.status === 'CONFIRMED')) {
+      try {
+        await inngest.send({
+          name: 'booking/created',
+          data: {
+            bookingId: booking.id,
+            bookingNumber: booking.bookingNumber,
+            customerId: booking.customerId,
+            customerEmail: booking.customer.email || '',
+            customerName: booking.customer.name || 'Customer',
+            scheduledAt: booking.scheduledAt.toISOString(),
+            productName: booking.product.name,
+            finalPrice: booking.finalPrice,
+          },
+        });
+      } catch (error) {
+        console.error('Failed to emit booking/created event:', error);
+        // Don't fail the booking creation if event emission fails
+      }
     }
 
     let successMessage = 'Booking request submitted successfully. An admin will review and confirm availability shortly.';

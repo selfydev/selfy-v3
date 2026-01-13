@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { DesignTemplate } from '@prisma/client';
+import { inngest } from '@/lib/inngest/client';
 
 // Helper: Check if template is locked (2 hours before event)
 function isTemplateLocked(scheduledAt: Date): boolean {
@@ -201,6 +202,23 @@ export async function POST(request: NextRequest) {
             },
           })),
         });
+
+        // Emit Inngest event for template submission
+        try {
+          await inngest.send({
+            name: 'template/submitted',
+            data: {
+              bookingId,
+              bookingNumber: booking.bookingNumber,
+              customerId: session.user.id,
+              templateId: template.id,
+              submittedAt: new Date().toISOString(),
+            },
+          });
+        } catch (error) {
+          console.error('Failed to emit template/submitted event:', error);
+          // Don't fail the template submission if event emission fails
+        }
       }
     }
 

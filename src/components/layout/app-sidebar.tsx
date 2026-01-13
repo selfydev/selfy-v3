@@ -25,6 +25,7 @@ import {
   Layers,
   MoreHorizontal,
   FolderOpen,
+  Activity,
 } from 'lucide-react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -125,6 +126,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
       badgeColor: 'bg-destructive',
     },
     { title: 'All Bookings', url: '/admin/bookings/all', icon: CheckCircle, badge: 0 },
+    { title: 'Automations', url: '/admin/automations', icon: Activity, badge: 0 },
   ];
 
   const navCatalog = [
